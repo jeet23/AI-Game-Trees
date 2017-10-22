@@ -5,14 +5,20 @@ alpha = -10000
 beta = 10000
 
 numberOfStaticEvaluation = 0
+iterativeDeepening = 5 #User has to input
+heightChecked = 0
+Modified = False
+
 def negamax(root, branching, height, alpha, beta):
-	if len(root.children) == 0:
+	global heightChecked, iterativeDeepening
+	# Check if leaf node or Iterative deepening reached limit
+	if len(root.children) == 0 or heightChecked == iterativeDeepening:
 		global numberOfStaticEvaluation
 		numberOfStaticEvaluation += 1
 		return root.data
 	else:
 		for move in range(0, branching):
-			# Implement OrderMoves(root.children) here
+			# Implement OrderMoves(root.children) here if parameter Modified == True
 			# orderMoves(root.children)
 			newNode = root.children[move]
 			temp = -(negamax(newNode, branching, height - 1, -beta, -alpha))
@@ -20,6 +26,7 @@ def negamax(root, branching, height, alpha, beta):
 			if temp > beta:
 				return temp
 			alpha = max(temp, alpha)
+		heightChecked += 1 # Next level being checked now
 	return alpha
 
 # def orderMoves(root):
