@@ -1,5 +1,5 @@
 import random
-from tree import *
+from tree2 import *
 
 alpha = -10000
 beta = 10000
@@ -40,11 +40,14 @@ def main():
 	h = 3 #int(input("Enter Height: "), 10)
 	approx = 5 #int(input("Enter Approximation: "), 10)
 
-	root = Node(random.randint(-2500,2500))
-	print("Adding root node at height {}: {}".format(h, root.data))
-	insertNodes(root, b ,h, approx)
 
+	tValue= random.randint(-2500,2500)
+	delta = random.randint(-approx,approx)
+	root = Node( tValue + delta)
+	print("Adding root node at height {}: T Value: {}".format(h, tValue))
+	insertNodes(root, b, h, delta, approx, tValue)
 	printTree(root, b, h)
+
 
 	negamaxValue = negamax(root, b, h, alpha, beta)
 	print("Negamax value is : {} ".format(negamaxValue))
