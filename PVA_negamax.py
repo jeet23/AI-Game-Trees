@@ -24,10 +24,10 @@ def negamax(root, branching, height, alpha, beta, Modified):
 		return [PV, root.data]
 	else:
 		# Implement OrderMoves(root.children) here if parameter Modified == True
-		if Modified is True:
-			root = orderMoves(root)
 		PV = {}
 		for move in range(0, branching):
+			if Modified is True:
+				root = orderMoves(root)
 			newNode = root.children[move]
 			temp = -(negamax(newNode, branching, height - 1, -beta, -alpha, Modified))[1]
 			# Do nothing ---> destroy newNode
@@ -47,18 +47,12 @@ def orderMoves(root):
 	# Finds the index of min element
 	array = [daughters.data for daughters in root.children]
 	minIndex = array.index(minChild)
-	
-	for daughters in range(0, len(root.children)):
- 		# Copy nodes to reordered nodes
-		root.reordered_children[daughters].data = root.children[daughters].data
-	
-	print("Original order : {} ".format([item.data for item in root.reordered_children]))
-	
-	# Swapping min element with first element
-	root.children[0].data, root.children[minIndex].data = root.children[minIndex].data, root.children[0].data
+		
+	# Swapping min element with first element by reference
+	root.children[0], root.children[minIndex] = root.children[minIndex], root.children[0]
 
-	print("Original order : {} ".format([item.data for item in root.reordered_children]))
-	print("Changed order : {} ".format([item.data for item in root.children]))
+	# print("Original order : {} ".format([item.data for item in root.reordered_children]))
+	# print("Changed order : {} ".format([item.data for item in root.children]))
 	return root
 
 def main():
@@ -81,13 +75,6 @@ def main():
 	print("numberOfStaticEvaluation is : {} ".format(numberOfStaticEvaluation))
 
 
-	# root = orderMoves(root)
-	# print("After Principal Variation Re-ordering")
-	# printTree(root, b, h)
-	# PV1, negamaxValue1 = negamax(root, b, h, alpha, beta, True)
-	# print("PV is {}: ".format(PV1))
-	# print("Negamax value is : {} ".format(negamaxValue1))
-	# print("numberOfStaticEvaluation_with_pva is : {} ".format(numberOfStaticEvaluation_with_pva))
 
 main()
 
