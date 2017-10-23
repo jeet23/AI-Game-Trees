@@ -1,5 +1,5 @@
 import random
-from tree2 import *
+from tree_with_t import *
 
 alpha = -10000
 beta = 10000
