@@ -1,38 +1,38 @@
 import random
-from tree import *
+from tree_with_t import *
+from PVA_negamax import orderMoves
 
-alpha=-10000
-beta=10000
+alpha = -10000
+beta = 10000
+iterativeDeepening = 5
+heightChecked = 0
+numberOfStaticEvaluation = 0
+numberOfStaticEvaluation_with_pva = 0
 
-def evaluation(alpha, beta):
-	return (alpha * beta) / 1000;
-
-def makemove(root):
-	return 1
-
-def unmakemove(root):
-	return 0
-
-def pvs(root, branching, height, alpha, beta):
-	if len(root.children) == 0:
-		return evaluation(alpha, beta)
+def pvs(root, branching, height, alpha, beta, Modified):
+	global heightChecked, numberOfStaticEvaluation, numberOfStaticEvaluation_with_pva
+	if len(root.children) == 0 or heightChecked == iterativeDeepening:
+		if Modified:
+			numberOfStaticEvaluation_with_pva += 1
+		else:
+			numberOfStaticEvaluation += 1
+		return root.data
 	else:
-		makemove(root.children[0])
-		score = - pvs(root.children[0], branching, height - 1 , - beta, -alpha)
-		unmakemove(root.children[0])
-		if score < beta:
-			for m in range(1, branching):
-				LB = max(alpha, score)
-				UB = LB + 1
-				makemove(root.children[m])
-				temp = - pvs (root.children[m], branching, height - 1, -UB, -LB)
-				if(temp > UB) and (temp < beta):
-					temp = - pvs(root.children[m], branching, height - 1, -beta, -temp)
-				unmakemove(root.children[m])
-				score = max(score,temp)
-				if (temp > beta):
-					break
-			return score
+		for m in range(0, branching):
+			if Modified:
+				root = orderMoves(root)
+			if m == 0:
+				score = -pvs(root.children[m], branching, height - 1, -beta, -alpha, Modified)
+			else:
+				score = -pvs(root.children[m], branching, height - 1, -alpha -1 , -alpha, Modified)
+				if alpha < score < beta:
+					score = -pvs(root.children[m], branching, height-1, -beta, -score, Modified)
+			alpha = max(alpha, score)
+			if alpha > beta:
+				break
+		heightChecked += 1
+	return alpha
+
 
 def main():
 	# Input branching factor b , Height h and approximation approx
@@ -41,14 +41,20 @@ def main():
 	h = 3 #int(input("Enter Height: "), 10)
 	approx = 5 #int(input("Enter Approximation: "), 10)
 
-	root = Node(random.randint(-2500,2500))
-	print("Adding root node at height {}: {}".format(h, root.data))
-	insertNodes(root, b ,h, approx)
-
+	tValue= random.randint(-2500,2500)
+	delta = random.randint(-approx,approx)
+	root = Node( tValue + delta)
+	print("Adding root node at height {}: T Value: {}".format(h, tValue))
+	insertNodes(root, b, h, delta, approx, tValue)
 	printTree(root, b, h)
 
-	pvsValue = pvs(root, b, h, alpha, beta)
-	print("Negamax value is : {} ".format(negamaxValue))
-	print("numberOfStaticEvaluation is : {} ".format(numberOfStaticEvaluation))
+	pvsValue = pvs(root, b, h, alpha, beta, False)
+	print("PVS value without re-ordering is : {} ".format(pvsValue))
+	print("numberOfStaticEvaluation without re-ordering is : {} ".format(numberOfStaticEvaluation))
 
-main()
+	pvsValue1 = pvs(root, b, h, alpha, beta, True)
+	print("PVS value with re-ordering is : {} ".format(pvsValue1))
+	print("numberOfStaticEvaluation with re-ordering is : {} ".format(numberOfStaticEvaluation_with_pva))
+
+if __name__ == "__main__":
+    main()

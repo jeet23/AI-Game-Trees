@@ -29,9 +29,6 @@ def negamax(root, branching, height, alpha, beta):
 		heightChecked += 1 # Next level being checked now
 	return alpha
 
-# def orderMoves(root):
-# 	for daughters in range(0, len(root)):
-# 		root[daughters].data
 
 def main():
 	# Input branching factor b , Height h and approximation approx

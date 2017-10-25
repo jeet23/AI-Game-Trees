@@ -99,5 +99,5 @@ def main():
 	# print("Negamax value is : {} ".format(negamaxValue1))
 	# print("numberOfStaticEvaluation_with_pva is : {} ".format(numberOfStaticEvaluation_with_pva))
 
-main()
-
+if __name__ == "__main__":
+    main()

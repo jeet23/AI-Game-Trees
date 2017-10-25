@@ -83,4 +83,5 @@ def main():
 	insertNodes(root, b, h, delta, approx, tValue)
 	printTree(root, b, h)
 
-main()
+if __name__ == "__main__":
+    main()
