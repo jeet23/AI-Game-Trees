@@ -5,10 +5,10 @@ class Node(object):
 	def __init__(self, data):
 		self.data = data
 		self.children = []
-		self.reordered_children = []
+		self.copy_of_children = []
 	def add_child(self, obj):
 		self.children.append(obj)
-		self.reordered_children.append(obj)
+		self.copy_of_children.append(obj)
 
 
 def insertNodes(root, branchingFactor, height, delta, approx, tValue):

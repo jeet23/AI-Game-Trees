@@ -27,8 +27,12 @@ def negamax(root, branching, height, alpha, beta, Modified):
 			# If Modified is True, re-order the node's children
 			if Modified:
 				root = orderMoves(root)
+				# Store the first daughter in the re-ordered tree for unpicking values later
 				PV[root.data] = root.children[0].data
-			newNode = root.children[move]
+				newNode = root.children[move]
+			else:
+				# else use the copy of children (copy_of_children) which is not re-ordered
+				newNode = root.copy_of_children[move]
 			temp = -(negamax(newNode, branching, height - 1, -beta, -alpha, Modified))[1]
 			# Do nothing ---> destroy newNode
 			if temp > beta:
@@ -51,7 +55,7 @@ def orderMoves(root):
 	# Swapping min element with first element by reference
 	root.children[0], root.children[minIndex] = root.children[minIndex], root.children[0]
 
-	# print("Original order : {} ".format([item.data for item in root.reordered_children]))
+	# print("Original order : {} ".format([item.data for item in root.copy_of_children]))
 	# print("Changed order : {} ".format([item.data for item in root.children]))
 	return root
 
