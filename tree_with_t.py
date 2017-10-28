@@ -21,6 +21,7 @@ def insertNodes(root, branchingFactor, height, delta, approx, tValue):
 		negatedValue = -(tValue)
 		level = height-1
 		delta = random.randint(-approx, approx) if level != 0 else 0
+		if negatedValue == INFINITY: return
 		# pdb.set_trace()
 		if branches == randomlyChosenDaughter:
 			E = negatedValue + delta

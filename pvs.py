@@ -38,7 +38,7 @@ def main():
 	# Input branching factor b , Height h and approximation approx
 
 	b = 2 #int(input("Enter Branching factor: "), 10)
-	h = 3 #int(input("Enter Height: "), 10)
+	h = 4 #int(input("Enter Height: "), 10)
 	approx = 5 #int(input("Enter Approximation: "), 10)
 
 	tValue= random.randint(-2500,2500)

@@ -50,5 +50,5 @@ def main():
 	print("Negamax value is : {} ".format(negamaxValue))
 	print("numberOfStaticEvaluation is : {} ".format(numberOfStaticEvaluation))
 
-main()
-
+if __name__ == "__main__":
+    main()
