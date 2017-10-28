@@ -7,7 +7,7 @@ def main():
 	# Input branching factor b , Height h and approximation approx
 
 	branching = [3,6] #int(input("Enter Branching factor: "), 10)
-	height = [4,5] #int(input("Enter Height: "), 10)
+	height = [4,5,6] #int(input("Enter Height: "), 10)
 	approx_values = [0,50,100] #int(input("Enter Approximation: "), 10)
 
 	for i in range(0, len(branching)):
@@ -30,6 +30,8 @@ def main():
 				print("Negamax value with PVA is : {} ".format(negamaxValue2))
 				print("numberOfStaticEvaluation with PVA is : {} ".format(PVA_negamax.numberOfStaticEvaluation_with_pva))
 
+				root = Node( tValue + delta)
+				insertNodes(root, b, h, delta, approx, tValue)
 				pvsValue = pvs.pvs(root, b, h, pvs.alpha, pvs.beta, False)
 				print("PVS value without re-ordering is : {} ".format(pvsValue))
 				print("numberOfStaticEvaluation without re-ordering is : {} ".format(pvs.numberOfStaticEvaluation))
