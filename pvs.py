@@ -4,7 +4,7 @@ from PVA_negamax import orderMoves
 
 alpha = -10000
 beta = 10000
-iterativeDeepening = 5
+iterativeDeepening = 5 #Based on resources available
 heightChecked = 0
 numberOfStaticEvaluation = 0
 numberOfStaticEvaluation_with_pva = 0
@@ -22,11 +22,14 @@ def pvs(root, branching, height, alpha, beta, Modified):
 			if Modified:
 				root = orderMoves(root)
 			if m == 0:
-				score = -pvs(root.children[m], branching, height - 1, -beta, -alpha, Modified)
+				score = -pvs(root.children[m], branching, height - 1,
+							 -beta, -alpha, Modified)
 			else:
-				score = -pvs(root.children[m], branching, height - 1, -alpha -1 , -alpha, Modified)
+				score = -pvs(root.children[m], branching, height - 1, 
+							-alpha -1 , -alpha, Modified)
 				if alpha < score < beta:
-					score = -pvs(root.children[m], branching, height-1, -beta, -score, Modified)
+					score = -pvs(root.children[m], branching, height-1, 
+								-beta, -score, Modified)
 			alpha = max(alpha, score)
 			if alpha > beta:
 				break
@@ -51,11 +54,13 @@ def main():
 
 	pvsValue = pvs(root, b, h, alpha, beta, False)
 	print("PVS value without re-ordering is : {} ".format(pvsValue))
-	print("numberOfStaticEvaluation without re-ordering is : {} ".format(numberOfStaticEvaluation))
+	print("numberOfStaticEvaluation without re-ordering is : {} ".\
+			format(numberOfStaticEvaluation))
 
 	pvsValue1 = pvs(root, b, h, alpha, beta, True)
 	print("PVS value with re-ordering is : {} ".format(pvsValue1))
-	print("numberOfStaticEvaluation with re-ordering is : {} ".format(numberOfStaticEvaluation_with_pva))
+	print("numberOfStaticEvaluation with re-ordering is : {} ".\
+			format(numberOfStaticEvaluation_with_pva))
 
 if __name__ == "__main__":
     main()

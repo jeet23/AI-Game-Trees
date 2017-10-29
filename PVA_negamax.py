@@ -6,7 +6,7 @@ beta = 10000
 
 numberOfStaticEvaluation = 0
 numberOfStaticEvaluation_with_pva = 0
-iterativeDeepening = 5 #User has to input
+iterativeDeepening = 5 #Based on resources available
 heightChecked = 0
 PV = {}
 
@@ -32,7 +32,8 @@ def negamax(root, branching, height, alpha, beta, Modified):
 			else:
 				# else use the copy of children (copy_of_children) which is not re-ordered
 				newNode = root.copy_of_children[move]
-			temp = -(negamax(newNode, branching, height - 1, -beta, -alpha, Modified))[1]
+			temp = -(negamax(newNode, branching, height - 1, 
+					-beta, -alpha, Modified))[1]
 			# Do nothing ---> destroy newNode
 			if temp > beta:
 				return [PV,temp]
@@ -54,12 +55,10 @@ def orderMoves(root):
 	# Swapping min element with first element by reference
 	root.children[0], root.children[minIndex] = root.children[minIndex], root.children[0]
 
-	# print("Original order : {} ".format([item.data for item in root.copy_of_children]))
-	# print("Changed order : {} ".format([item.data for item in root.children]))
 	return root
 
 
-# Unpick the returned values of principal variation of each node
+# Logic to Unpick the returned values of principal variation of each node
 def unpickReturnedValues(pv):
 	index=0
 	reorder_list = {}
@@ -71,26 +70,14 @@ def unpickReturnedValues(pv):
 
 		j = index
 		reorder_list[list_of_keys[index]] = list()
-		while(j < len(list_of_keys)-1 and list_of_values[j] == list_of_keys[j+1] and list_of_values[j] is not None):
+		while(j < len(list_of_keys)-1 and list_of_values[j] == list_of_keys[j+1] 
+				and list_of_values[j] is not None):
 			reorder_list[list_of_keys[index]].append(list_of_values[j])
 			j+=1
 		index+=1
 
 	return reorder_list
 
-
-# def reOrderTreePVA(root, height, branching):
-# 	if len(root.children) == 0:
-# 		return
-# 	minChild = root.children[0].data
-# 	for daughters in range(0, branching):
-# 		minChild = min(minChild, root.children[daughters].data)
-# 	array = [daughters.data for daughters in root.children]
-# 	minIndex = array.index(minChild)
-# 	root.children[0], root.children[minIndex] = root.children[minIndex], root.children[0]
-
-# 	for node in range(0, branching):
-# 		reOrderTreePVA(root.children[node], height-1, branching)
 
 def main():
 	# Input branching factor b , Height h and approximation approx
@@ -110,7 +97,8 @@ def main():
 	PV, negamaxValue = negamax(root, b, h, alpha, beta, False)
 	# print("PV is {}: ".format(PV))
 	print("Negamax value without PVA is : {} ".format(negamaxValue))
-	print("numberOfStaticEvaluation without PVA is : {} ".format(numberOfStaticEvaluation))
+	print("numberOfStaticEvaluation without PVA is : {} ".\
+			format(numberOfStaticEvaluation))
 
 	
 	PV, negamaxValue2 = negamax(root, b, h, alpha, beta, True)
@@ -118,15 +106,8 @@ def main():
 	print("PV returned values {}: ".format(PV))
 	print("PV unpicked values for each node {}: ".format(unpickValues))
 	print("Negamax value with PVA is : {} ".format(negamaxValue2))
-	print("numberOfStaticEvaluation with PVA is : {} ".format(numberOfStaticEvaluation_with_pva))
-
-	# reOrderTreePVA(root, h, b)
-	# print("----------------------T R E E after reordering------------------")
-	# printTree(root, b, h)
-	# PV1, negamaxValue1 = negamax(root, b, h, alpha, beta, True)
-	# print("PV is {}: ".format(PV1))
-	# print("Negamax value is : {} ".format(negamaxValue1))
-	# print("numberOfStaticEvaluation_with_pva is : {} ".format(numberOfStaticEvaluation_with_pva))
+	print("numberOfStaticEvaluation with PVA is : {} ".\
+			format(numberOfStaticEvaluation_with_pva))
 
 if __name__ == "__main__":
     main()

@@ -5,7 +5,7 @@ alpha = -10000
 beta = 10000
 
 numberOfStaticEvaluation = 0
-iterativeDeepening = 5 #User has to input
+iterativeDeepening = 5 #Based on resources available
 heightChecked = 0
 Modified = False
 

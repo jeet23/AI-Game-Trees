@@ -27,13 +27,15 @@ def insertNodes(root, branchingFactor, height, delta, approx, tValue):
 			E = negatedValue + delta
 			# print("Copying parent Negated node ----> Adding child node at height {} with T Value: {}".format(level, negatedValue))
 			root.add_child(Node(E))
-			insertNodes(root.children[branches], branchingFactor, level, delta, approx, negatedValue)
+			insertNodes(root.children[branches], branchingFactor, level,
+						delta, approx, negatedValue)
 		else:
 			randomNumberGreaterThanNegatedValue = random.randint(negatedValue+1,INFINITY+1)
 			E = randomNumberGreaterThanNegatedValue + delta
 			# print("Creating random node ----> Adding child node at height {} with T Value: {}".format(level, randomNumberGreaterThanNegatedValue))
 			root.add_child(Node(E))
-			insertNodes(root.children[branches], branchingFactor, level, delta, approx, randomNumberGreaterThanNegatedValue)
+			insertNodes(root.children[branches], branchingFactor, level, delta, approx, \
+						randomNumberGreaterThanNegatedValue)
 
 
 

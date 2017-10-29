@@ -22,27 +22,33 @@ def main():
 					root = Node( tValue + delta)
 					b = calculateBranchingFactorChance(b)
 					insertNodes(root, b, h, delta, approx, tValue)
-					print("\nBranching factor is: {} and height is {} and approx is {}".format(b,h,approx))
+					print("\nBranching factor is: {} and height is {} and approx is {}".\
+							format(b,h,approx))
 					print("Tree number : {}".format(num+1))
 
 					negamaxValue = negamax.negamax(root, b, h, negamax.alpha, negamax.beta)
 					print("Negamax value is : {} ".format(negamaxValue))
-					print("Static Evaluation for Negamax is : {} ".format(negamax.numberOfStaticEvaluation))
+					print("Static Evaluation for Negamax is : {} ".\
+							format(negamax.numberOfStaticEvaluation))
 
-					PV, negamaxValue2 = PVA_negamax.negamax(root, b, h, PVA_negamax.alpha, PVA_negamax.beta, True)
+					PV, negamaxValue2 = PVA_negamax.negamax(root, b, h, PVA_negamax.alpha,
+										PVA_negamax.beta, True)
 					print("Negamax value with re-ordering is : {} ".format(negamaxValue2))
-					print("Static Evaluation for Negamax with re-ordering is : {} ".format(PVA_negamax.numberOfStaticEvaluation_with_pva))
+					print("Static Evaluation for Negamax with re-ordering is : {} ".\
+							format(PVA_negamax.numberOfStaticEvaluation_with_pva))
 
 					# Since PVA_Negamax already reoredered the children, we restore the tree by inserting again
 					root = Node( tValue + delta)
 					insertNodes(root, b, h, delta, approx, tValue)
 					pvsValue = pvs.pvs(root, b, h, pvs.alpha, pvs.beta, False)
 					print("PVS value without re-ordering is : {} ".format(pvsValue))
-					print("Static Evaluation for PVS without re-ordering is : {} ".format(pvs.numberOfStaticEvaluation))
+					print("Static Evaluation for PVS without re-ordering is : {} ".\
+							format(pvs.numberOfStaticEvaluation))
 
 					pvsValue1 = pvs.pvs(root, b, h, pvs.alpha, pvs.beta, True)
 					print("PVS value with re-ordering is : {} ".format(pvsValue1))
-					print("Static Evaluation for PVS with re-ordering is : {} ".format(pvs.numberOfStaticEvaluation_with_pva))
+					print("Static Evaluation for PVS with re-ordering is : {} ".\
+							format(pvs.numberOfStaticEvaluation_with_pva))
 
 if __name__ == "__main__":
     main()
