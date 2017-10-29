@@ -20,22 +20,26 @@ def insertNodes(root, branchingFactor, height, delta, approx, tValue):
 		level = height-1
 		delta = random.randint(-approx, approx) if level != 0 else 0
 		if negatedValue == INFINITY+1 or tValue == INFINITY+1:
-			# print("-----------GAME WON POSITION--------at node E: {}, T : {}--------".format(root.data, tValue))
+			# print("-----------GAME WON POSITION--------"
+			# 		"at node E: {}, T : {}--------".format(root.data, tValue))
 			return
 		# pdb.set_trace()
 		if branches == randomlyChosenDaughter:
 			E = negatedValue + delta
-			# print("Copying parent Negated node ----> Adding child node at height {} with T Value: {}".format(level, negatedValue))
+			# print("Copying parent Negated node ---->"
+			# 		"Adding child node at height {} with T Value: {}".format(level, negatedValue))
 			root.add_child(Node(E))
 			insertNodes(root.children[branches], branchingFactor, level,
 						delta, approx, negatedValue)
 		else:
 			randomNumberGreaterThanNegatedValue = random.randint(negatedValue+1,INFINITY+1)
 			E = randomNumberGreaterThanNegatedValue + delta
-			# print("Creating random node ----> Adding child node at height {} with T Value: {}".format(level, randomNumberGreaterThanNegatedValue))
+			# print("Creating random node ---->"
+			# 	"Adding child node at height {} with T Value: {}".\
+			# 	format(level, randomNumberGreaterThanNegatedValue))
 			root.add_child(Node(E))
-			insertNodes(root.children[branches], branchingFactor, level, delta, approx, \
-						randomNumberGreaterThanNegatedValue)
+			insertNodes(root.children[branches], branchingFactor, \
+						level, delta, approx, randomNumberGreaterThanNegatedValue)
 
 
 
