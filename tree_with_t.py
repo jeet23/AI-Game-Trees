@@ -56,9 +56,10 @@ def printGivenLevel(root, level, branchingFactor):
 
 def calculateBranchingFactorChance(branching):
 	# 90% chances of b, 5% of b+1, 5% of b-1
-	if random.randrange(0,100) < 90:
+	randomPercentage = random.randrange(0,100) 
+	if randomPercentage < 90:
 		b = branching
-	elif 90 < random.randrange(0,100) < 95:
+	elif 90 < randomPercentage < 95:
 		b = branching + 1
 	else:
 		b = branching - 1
