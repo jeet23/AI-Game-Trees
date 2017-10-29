@@ -12,8 +12,6 @@ class Node(object):
 
 
 def insertNodes(root, branchingFactor, height, delta, approx, tValue):
-	branchingFactor = calculateBranchingFactorChance(branchingFactor)
-
 	if height == 0 or root.data == INFINITY or branchingFactor == 0:
 		return
 	randomlyChosenDaughter = random.randint(0, branchingFactor-1)
@@ -43,13 +41,6 @@ def printTree(root, branching, height):
 	print("----------------------- T R E E ---------------------")
 	print("----------------------- E Values ---------------------")
 	for level in range(0, height + 1):
-		# if level > 1:
-		# 	branchingFactor = calculateBranchingFactorChance(branching)
-		# else:
-		# 	branchingFactor = branching
-		# flagBranchChanged = True if branching != branchingFactor else False
-		# TODO :: Printing tree with branching factor b+1 or b-1 is BUGGY right now. (>90% chance cases)
-
 		printGivenLevel(root, level, branching)
 		print("\n")
 
@@ -64,13 +55,14 @@ def printGivenLevel(root, level, branchingFactor):
 			print(end = "   ")
 
 def calculateBranchingFactorChance(branching):
-	if (90 < branching % 100 < 95):
-		branchingFactor = branching + 1
-	elif ( branching % 100 > 95):
-		branchingFactor = branching - 1
+	# 90% chances of b, 5% of b+1, 5% of b-1
+	if random.randrange(0,100) < 90:
+		b = branching
+	elif 90 < random.randrange(0,100) < 95:
+		b = branching + 1
 	else:
-		branchingFactor = branching
-	return branchingFactor
+		b = branching - 1
+	return b
 
 def main():
 	# Input branching factor b , Height h and approximation approx
@@ -82,6 +74,7 @@ def main():
 	tValue= random.randint(-2500,2500)
 	delta = random.randint(-approx,approx)
 	root = Node( tValue + delta)
+	b = calculateBranchingFactorChance(b)
 	print("Adding root node at height {}: T Value: {}".format(h, tValue))
 	insertNodes(root, b, h, delta, approx, tValue)
 	printTree(root, b, h)

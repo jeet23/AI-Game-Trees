@@ -8,7 +8,7 @@ def main():
 
 	branching = [3,6] #int(input("Enter Branching factor: "), 10)
 	height = [4,5] #int(input("Enter Height: "), 10)
-	approx_values = [0,50,100] #int(input("Enter Approximation: "), 10)
+	approx_values = [100,150] #int(input("Enter Approximation: "), 10)
 
 	for i in range(0, len(branching)):
 		for j in range(0, len(height)):
@@ -16,10 +16,11 @@ def main():
 				b = branching[i]
 				h = height[j]
 				approx = approx_values[k]
-				for num in range(0,5):
+				for num in range(0,1):
 					tValue= random.randint(-2500,2500)
 					delta = random.randint(-approx,approx)
 					root = Node( tValue + delta)
+					b = calculateBranchingFactorChance(b)
 					insertNodes(root, b, h, delta, approx, tValue)
 					print("\nBranching factor is: {} and height is {} and approx is {}".format(b,h,approx))
 					print("Tree number : {}".format(num+1))

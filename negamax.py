@@ -41,6 +41,7 @@ def main():
 	tValue= random.randint(-2500,2500)
 	delta = random.randint(-approx,approx)
 	root = Node( tValue + delta)
+	b = calculateBranchingFactorChance(b)
 	print("Adding root node at height {}: T Value: {}".format(h, tValue))
 	insertNodes(root, b, h, delta, approx, tValue)
 	printTree(root, b, h)
