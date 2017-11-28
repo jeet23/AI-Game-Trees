@@ -1,5 +1,4 @@
-# Student number: 17200844
-# Name: Jeet Banerjee
+
 from tree_with_t import *
 import pdb
 
