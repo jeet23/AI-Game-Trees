@@ -1,3 +1,5 @@
+# Student number: 17200844
+# Name: Jeet Banerjee
 import random
 from tree_with_t import *
 from PVA_negamax import orderMoves

@@ -1,3 +1,5 @@
+# Student number: 17200844
+# Name: Jeet Banerjee
 import random
 import pdb
 INFINITY = 10000
@@ -23,7 +25,6 @@ def insertNodes(root, branchingFactor, height, delta, approx, tValue):
 			# print("-----------GAME WON POSITION--------"
 			# 		"at node E: {}, T : {}--------".format(root.data, tValue))
 			return
-		# pdb.set_trace()
 		if branches == randomlyChosenDaughter:
 			E = negatedValue + delta
 			# print("Copying parent Negated node ---->"

@@ -1,3 +1,5 @@
+# Student number: 17200844
+# Name: Jeet Banerjee
 from tree_with_t import *
 import pdb
 
@@ -83,7 +85,7 @@ def main():
 	# Input branching factor b , Height h and approximation approx
 
 	b = 2 #int(input("Enter Branching factor: "), 10)
-	h = 3 #int(input("Enter Height: "), 10)
+	h = 4 #int(input("Enter Height: "), 10)
 	approx = 5 #int(input("Enter Approximation: "), 10)
 
 	
